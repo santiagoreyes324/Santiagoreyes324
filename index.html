@@ -1,214 +1,432 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heaven's Gate | Historia</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEAVEN'S GATE | No mires atrás</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #10131a;
-            color: #eeeeee;
-            line-height: 1.6;
-        }
+:root {
+    --green: #b7ffb7;
+    --dim-green: #427d52;
+    --red: #ff2525;
+    --black: #030504;
+}
 
-        header {
-            background-color: #080a0f;
-            text-align: center;
-            padding: 35px 20px;
-            border-bottom: 2px solid #64748b;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        header h1 {
-            font-size: 40px;
-            letter-spacing: 4px;
-            color: #dbeafe;
-        }
+body {
+    background: var(--black);
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: crosshair;
+}
 
-        header p {
-            color: #94a3b8;
-            margin-top: 10px;
-        }
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+    background: repeating-linear-gradient(
+        transparent 0px,
+        rgba(0,0,0,.1) 1px,
+        rgba(0,0,0,.65) 2px,
+        transparent 4px
+    );
+}
 
-        nav {
-            background-color: #1e293b;
-            padding: 15px;
-            text-align: center;
-        }
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse,
+        transparent 20%,
+        rgba(0,0,0,.85) 100%
+    );
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-        }
+.noise {
+    position: fixed;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: 8;
+    pointer-events: none;
+    opacity: .07;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    animation: staticNoise .2s steps(3) infinite;
+}
 
-        nav a:hover {
-            color: #93c5fd;
-        }
+@keyframes staticNoise {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(2%, -1%); }
+    50% { transform: translate(-1%, 2%); }
+    75% { transform: translate(1%, 1%); }
+    100% { transform: translate(-2%, -1%); }
+}
 
-        .hero {
-            text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(
-                to bottom,
-                #1e293b,
-                #10131a
-            );
-        }
+.container {
+    width: min(900px, 90%);
+    margin: auto;
+    padding: 60px 0;
+    position: relative;
+    z-index: 2;
+}
 
-        .hero h2 {
-            font-size: 32px;
-            margin-bottom: 15px;
-        }
+.status {
+    color: var(--red);
+    font-size: 12px;
+    letter-spacing: 3px;
+    animation: blink 1.5s infinite;
+}
 
-        .hero p {
-            max-width: 650px;
-            margin: auto;
-            color: #cbd5e1;
-        }
+@keyframes blink {
+    50% { opacity: .15; }
+}
 
-        .contenedor {
-            max-width: 900px;
-            margin: auto;
-            padding: 30px 20px;
-        }
+header {
+    text-align: center;
+    border-top: 1px solid var(--dim-green);
+    border-bottom: 1px solid var(--dim-green);
+    padding: 45px 10px;
+    margin: 30px 0;
+}
 
-        section {
-            margin-bottom: 35px;
-            padding: 25px;
-            background-color: #1c222e;
-            border-radius: 10px;
-            border-left: 4px solid #64748b;
-        }
+h1 {
+    font-size: clamp(36px, 8vw, 76px);
+    font-weight: normal;
+    letter-spacing: 8px;
+    text-shadow: 0 0 12px #55ff77;
+    animation: flicker 5s infinite;
+}
 
-        section h2 {
-            color: #bfdbfe;
-            margin-bottom: 15px;
-        }
+@keyframes flicker {
+    0%, 18%, 22%, 60%, 62%, 100% { opacity: 1; }
+    20%, 61% { opacity: .65; }
+}
 
-        ul {
-            padding-left: 25px;
-        }
+.subtitle {
+    margin-top: 18px;
+    color: #809c80;
+    letter-spacing: 4px;
+    font-size: 12px;
+}
 
-        li {
-            margin-bottom: 8px;
-        }
+.warning {
+    border: 1px solid var(--red);
+    padding: 20px;
+    margin: 35px 0;
+    color: #ff7474;
+    background: rgba(70, 0, 0, .12);
+    box-shadow: 0 0 20px rgba(255, 0, 0, .06);
+}
 
-        .advertencia {
-            border-left-color: #b91c1c;
-        }
+.warning strong {
+    display: block;
+    margin-bottom: 12px;
+    letter-spacing: 3px;
+}
 
-        footer {
-            background-color: #080a0f;
-            text-align: center;
-            padding: 20px;
-            color: #94a3b8;
-            font-size: 14px;
-        }
+p {
+    line-height: 1.9;
+    color: #a6b9a6;
+    margin: 20px 0;
+}
 
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 28px;
-            }
+.separator {
+    color: var(--dim-green);
+    text-align: center;
+    margin: 40px 0;
+    overflow: hidden;
+}
 
-            nav a {
-                display: inline-block;
-                margin: 5px 8px;
-            }
+.terminal {
+    background: #050805;
+    border: 1px solid #29452d;
+    padding: 25px;
+    min-height: 180px;
+    box-shadow: inset 0 0 30px #000;
+}
 
-            .hero h2 {
-                font-size: 25px;
-            }
-        }
-    </style>
+.terminal-title {
+    color: var(--dim-green);
+    font-size: 12px;
+    border-bottom: 1px solid #203522;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+#terminalText {
+    white-space: pre-wrap;
+    line-height: 1.8;
+}
+
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background: var(--green);
+    animation: blink .8s infinite;
+    vertical-align: middle;
+}
+
+.countdown {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.countdown h2 {
+    font-size: 13px;
+    font-weight: normal;
+    letter-spacing: 4px;
+    color: #728c72;
+    margin-bottom: 18px;
+}
+
+#timer {
+    font-size: clamp(32px, 8vw, 55px);
+    color: var(--red);
+    text-shadow: 0 0 15px rgba(255, 0, 0, .35);
+}
+
+button {
+    background: transparent;
+    color: var(--green);
+    border: 1px solid var(--dim-green);
+    padding: 16px 25px;
+    font: inherit;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    background: var(--green);
+    color: #000;
+    box-shadow: 0 0 25px rgba(100, 255, 130, .25);
+}
+
+.center {
+    text-align: center;
+}
+
+footer {
+    border-top: 1px solid #1c2a1e;
+    margin-top: 70px;
+    padding-top: 25px;
+    text-align: center;
+    color: #465746;
+    font-size: 11px;
+    line-height: 2;
+}
+
+#revelation {
+    display: none;
+    color: var(--red);
+    font-size: 18px;
+    line-height: 2;
+    margin-top: 25px;
+    animation: flicker 3s infinite;
+}
+
+.glitch {
+    animation: glitch .15s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    25% { transform: translate(2px, -1px); }
+    50% { transform: translate(-1px, 1px); }
+    75% { transform: translate(1px, 2px); }
+    100% { transform: translate(0); }
+}
+
+@media (max-width: 600px) {
+    .container { padding-top: 30px; }
+    h1 { letter-spacing: 3px; }
+    header { padding: 35px 5px; }
+}
+</style>
 </head>
 
 <body>
+<div class="noise"></div>
+
+<main class="container">
+
+    <div class="status">
+        ● TRANSMISIÓN ACTIVA — ARCHIVO 001
+    </div>
 
     <header>
         <h1>HEAVEN'S GATE</h1>
-        <p>Historia de un grupo religioso y sus creencias</p>
+        <div class="subtitle">
+            NO TODOS LOS QUE DESPIERTAN ESTÁN VIVOS
+        </div>
     </header>
 
-    <nav>
-        <a href="#historia">Historia</a>
-        <a href="#creencias">Creencias</a>
-        <a href="#lideres">Líderes</a>
-        <a href="#final">1997</a>
-    </nav>
-
-    <div class="hero">
-        <h2>Entre la religión y la creencia extraterrestre</h2>
-        <p>
-            Heaven's Gate fue un movimiento religioso estadounidense
-            que combinaba ideas espirituales con creencias sobre
-            la existencia de seres extraterrestres.
-        </p>
+    <div class="warning">
+        <strong>⚠ AVISO DEL SISTEMA</strong>
+        Has accedido a un archivo que no aparece en los registros
+        públicos. No sabemos cómo llegaste aquí.
+        <br><br>
+        Quizá deberías preguntarte por qué sigues leyendo.
     </div>
 
-    <main class="contenedor">
+    <section>
+        <p>
+            Durante años, buscamos una señal entre el ruido.
+            Una voz detrás de la estática. Una puerta detrás del cielo.
+        </p>
 
-        <section id="historia">
-            <h2>1. Historia</h2>
-            <p>
-                Heaven's Gate surgió en Estados Unidos durante la década
-                de 1970. El grupo fue fundado por Marshall Applewhite
-                y Bonnie Nettles, quienes enseñaban que la humanidad
-                podía alcanzar un nivel superior de existencia.
-            </p>
-        </section>
+        <p>
+            Nos dijeron que estábamos solos.
+            Nos dijeron que no había nada al otro lado.
+        </p>
 
-        <section id="creencias">
-            <h2>2. Creencias principales</h2>
-            <ul>
-                <li>Creían en una evolución hacia un nivel superior.</li>
-                <li>Relacionaban sus ideas religiosas con seres extraterrestres.</li>
-                <li>Consideraban que la vida humana era una etapa temporal.</li>
-                <li>Seguían reglas estrictas de comportamiento y vida comunitaria.</li>
-            </ul>
-        </section>
+        <p style="color:#e1ffe1">
+            Pero entonces, una noche, alguien respondió.
+        </p>
+    </section>
 
-        <section id="lideres">
-            <h2>3. Sus líderes</h2>
-            <p>
-                Marshall Applewhite, conocido por sus seguidores como
-                "Do", y Bonnie Nettles, llamada "Ti", dirigieron el
-                movimiento. Sus enseñanzas mezclaban interpretaciones
-                de la Biblia con ideas sobre ovnis y transformación espiritual.
-            </p>
-        </section>
+    <div class="separator">
+        ────────── TRANSMISIÓN INTERRUMPIDA ──────────
+    </div>
 
-        <section id="final" class="advertencia">
-            <h2>4. Los acontecimientos de 1997</h2>
-            <p>
-                En marzo de 1997, 39 miembros del grupo murieron en un
-                suicidio colectivo en California. Creían que, al abandonar
-                sus cuerpos, podrían alcanzar una existencia superior
-                asociada con una nave extraterrestre.
-            </p>
-            <p>
-                Este suceso convirtió a Heaven's Gate en uno de los casos
-                más conocidos al estudiar las sectas, la influencia de
-                los líderes y los mecanismos de control psicológico.
-            </p>
-        </section>
+    <section class="terminal">
+        <div class="terminal-title">
+            TERMINAL REMOTA // CONEXIÓN DESCONOCIDA
+        </div>
 
+        <div id="terminalText"></div><span class="cursor"></span>
+    </section>
 
+    <section class="countdown">
+        <h2>TIEMPO DESDE LA ÚLTIMA SEÑAL</h2>
+        <div id="timer">00:00:00</div>
+    </section>
 
-    </main>
+    <div class="center">
+        <button id="revealButton" onclick="revealMessage()">
+            RECUPERAR ARCHIVO PERDIDO
+        </button>
+
+        <div id="revelation">
+            NO HAY NINGÚN ARCHIVO.<br>
+            SOLO ESTABAS ESPERANDO QUE ALGUIEN CONTESTARA.
+        </div>
+    </div>
+
+    <div class="separator">
+        ─────────────────────────────────────────────
+    </div>
+
+    <section>
+        <p style="text-align:center; color:#536d53">
+            Si has llegado hasta aquí, la transmisión ha terminado.
+        </p>
+
+        <p style="text-align:center; font-size:12px">
+            ¿O tal vez acaba de comenzar?
+        </p>
+    </section>
 
     <footer>
-        <p>Proyecto educativo | Historia de Heaven's Gate</p>
-        <p>Contenido con fines informativos e históricos.</p>
+        HEAVEN'S GATE // ARCHIVO DE FICCIÓN<br>
+        CONEXIÓN NO VERIFICADA<br>
+        <span id="systemTime"></span>
     </footer>
 
+</main>
+
+<script>
+const messages = [
+    "> Inicializando conexión...",
+    "> Buscando señal...",
+    "> Señal encontrada.",
+    "> Origen: DESCONOCIDO",
+    "> Último mensaje recuperado:",
+    "",
+    '"No mires al cielo esta noche."',
+    "",
+    "> Esperando respuesta"
+];
+
+const terminal = document.getElementById("terminalText");
+let line = 0;
+let char = 0;
+
+function typeText() {
+    if (line >= messages.length) return;
+
+    const current = messages[line];
+
+    if (char < current.length) {
+        terminal.textContent += current.charAt(char);
+        char++;
+        setTimeout(typeText, 45 + Math.random() * 70);
+    } else {
+        terminal.textContent += "\n";
+        line++;
+        char = 0;
+        setTimeout(typeText, 350 + Math.random() * 500);
+    }
+}
+
+setTimeout(typeText, 1200);
+
+// Reloj desde la apertura de la página
+const startTime = Date.now();
+
+function updateTimer() {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const hours = String(Math.floor(elapsed / 3600)).padStart(2, "0");
+    const minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(2, "0");
+    const seconds = String(elapsed % 60).padStart(2, "0");
+
+    document.getElementById("timer").textContent =
+        `${hours}:${minutes}:${seconds}`;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+
+// Revelación
+function revealMessage() {
+    const revelation = document.getElementById("revelation");
+    const button = document.getElementById("revealButton");
+
+    revelation.style.display = "block";
+    button.textContent = "ARCHIVO RECUPERADO";
+    button.disabled = true;
+
+    document.body.classList.add("glitch");
+
+    setTimeout(() => {
+        document.body.classList.remove("glitch");
+    }, 1200);
+}
+
+// Reloj del sistema
+function updateClock() {
+    document.getElementById("systemTime").textContent =
+        "HORA LOCAL: " + new Date().toLocaleTimeString("es-MX");
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
 </body>
 </html>
